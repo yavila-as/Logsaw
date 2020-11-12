@@ -13,11 +13,7 @@ import './styles.css';
 export default class GameScreen extends Component {
     componentDidMount(){
         this.shufflePieces();
-        setInterval(() => {
-            this.setState({
-              seconds : this.state.seconds+1
-            })
-          }, 1000)
+        
     }
 
     shufflePieces = () =>{
@@ -52,6 +48,12 @@ export default class GameScreen extends Component {
   }
 
   onDragStart = (event) => {
+      console.log('sdd');
+    setInterval(() => {
+        this.setState({
+          seconds : this.state.seconds+1
+        })
+      }, 1000)
     const initialPosition = Number(event.currentTarget.dataset.position);
     event.dataTransfer.setData("draggedFrom", initialPosition);
   }
