@@ -52,16 +52,16 @@ export default class GameScreen extends Component {
   }
 
   timeCounter = (time) => {
-    this.setState({
-      seconds : this.state.seconds + time
-    })
+    this.timer = setInterval(() => {
+      this.setState({
+        seconds : this.state.seconds + time
+      })
+    }, 1000)
   }
 
   onDragStart = (event) => {
     if (!this.state.gameStarted) {
-      setInterval(() => {
-        this.timeCounter(1);
-      }, 1000)
+      this.timeCounter(1);
       this.setState({ gameStarted: true });
     } 
     const initialPosition = Number(event.currentTarget.dataset.position);
@@ -75,54 +75,53 @@ export default class GameScreen extends Component {
   onDrop = (event) => {
     let draggedFrom = event.dataTransfer.getData("draggedFrom");
     let draggedTo = Number(event.currentTarget.dataset.position);
-    const itemDragged = this.state.shuffledList[draggedFrom];
-    const remainingItems = this.state.editableList.filter((item, index) => index !== Number(draggedTo));
-
-    let editableList = [
-      ...remainingItems.slice(0, draggedTo),
-      itemDragged,
-      ...remainingItems.slice(draggedTo)
-    ];
-    const itemDraggedA = this.state.editableList[draggedTo];
-    const remainingItemsA = this.state.shuffledList.filter((item, index) => index !== Number(draggedFrom));
-
-    let shuffledList = [
-      ...remainingItemsA.slice(0, draggedFrom),
-      itemDraggedA,
-      ...remainingItemsA.slice(draggedFrom)
-    ];
-    if(this.state.shuffledList[draggedFrom].number !== draggedTo){
-      console.log('jhhgghgh');
+    //if(this.state.editableList[draggedTo].image === `${boxImage}`){
+      const itemDragged = this.state.shuffledList[draggedFrom];
+      const remainingItems = this.state.editableList.filter((item, index) => index !== Number(draggedTo));
+  
+      let editableList = [
+        ...remainingItems.slice(0, draggedTo),
+        itemDragged,
+        ...remainingItems.slice(draggedTo)
+      ];
+      const itemDraggedA = this.state.editableList[draggedTo];
+      const remainingItemsA = this.state.shuffledList.filter((item, index) => index !== Number(draggedFrom));
+      let shuffledList = [
+        ...remainingItemsA.slice(0, draggedFrom),
+        itemDraggedA,
+        ...remainingItemsA.slice(draggedFrom)
+      ];
       this.setState({
-        seconds : this.state.seconds + 10
-      })
-    }
-    this.setState({
-      ...this.state,
-      editableList,
-      shuffledList
-    }); 
-    const temp = [1, 2, 2, 3, 4]
-    const listChecked = editableList.map((element, index) => {
-      return element.number === temp[index] ? true : false;
-    });
-    this.setState({
-      win: !listChecked.includes(false) && !editableList.some(e => e.image === `${boxImage}`),
-    }, () =>{
-      if(this.state.win){
-        setTimeout(()=> this.onUserWin(), 10000);
+        ...this.state,
+        editableList,
+        shuffledList
+      });
+      const temp = [1, 2, 2, 3, 4];
+      if(this.state.shuffledList[draggedFrom].number !== temp[draggedTo]){
+        this.setState({
+          seconds : this.state.seconds + 10
+        })
       }
-    });
+      const listChecked = editableList.map((element, index) => {
+        return element.number === temp[index] ? true : false;
+      });
+      this.setState({
+        win: !listChecked.includes(false) && !editableList.some(e => e.image === `${boxImage}`),
+      }, () =>{
+        if(this.state.win){
+          clearInterval(this.timer);
+          setTimeout(()=> this.onUserWin(), 10000);
+        }
+      });
+   // }
   }
-
+   
   onUserWin(){
-    alert('nos fuimos');
+    alert('You won!!! congratulations');
     this.setState(initialState);
     this.shufflePieces();
-    //clearInterval(myVar);
   }
 
-  
   render() {
     return (
       <Box display='flex' flexWrap="wrap">

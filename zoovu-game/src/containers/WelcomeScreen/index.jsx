@@ -31,7 +31,7 @@ const WelcomeScreen = ({ onSubmit, userName, setUserName }) => {
   const handleChange = ({ target }) => setUserName(target.value);
 
   return (
-    <Box display='flex' flexWrap="wrap">
+    <Box display='flex' flexWrap="wrap" data-testid="boxWelcome">
       <form noValidate autoComplete="off">
         <Grid
           container

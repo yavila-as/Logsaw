@@ -13,7 +13,7 @@ const App = () => {
   return (
     <div className="App">
       {submited ? (
-        <GameScreen  userName={name}  userName={name} />
+        <GameScreen  userName={name}/>
       ) : (
           <header className="App-header">
             <WelcomeScreen onSubmit={handleSubmit} userName={name} setUserName={setName}/>
