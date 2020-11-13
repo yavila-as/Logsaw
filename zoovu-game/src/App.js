@@ -1,7 +1,7 @@
 import React, { useState } from 'react'
 import './App.css';
-import WelcomeScreen from '../src/containers/WelcomeScreen';
-import GameScreen from '../src/containers/GameScreen';
+import WelcomeScreen from '../src/components/WelcomeScreen';
+import GameScreen from '../src/components/GameScreen';
 
 const App = () => {
   const [submited, setSubmited ] = useState(false);
@@ -15,9 +15,9 @@ const App = () => {
       {submited ? (
         <GameScreen  userName={name}/>
       ) : (
-          <header className="App-header">
-            <WelcomeScreen onSubmit={handleSubmit} userName={name} setUserName={setName}/>
-          </header>
+        <header className="App-header">
+          <WelcomeScreen onSubmit={handleSubmit} userName={name} setUserName={setName}/>
+        </header>
       )}
     </div>
   )
