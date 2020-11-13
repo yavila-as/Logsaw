@@ -1,0 +1,30 @@
+.imageBox {
+    background-color: white;
+    width: 60px;
+    height: 60px;
+    border-radius: 10px;
+    padding: 20px;
+    margin: 10px;
+}
+
+.borderBox {
+    width: 100px;
+    height: 100px;
+    border-radius: 10px;
+    margin: 10px;
+}
+
+.root {
+    flex-grow: 2;
+}
+.paper {
+    padding: 16px;
+    text-align: center;
+    color: 'red';
+}
+.gridSpace {
+    padding: 10px;
+}
+.timer{
+    color: #3B0078;
+}
